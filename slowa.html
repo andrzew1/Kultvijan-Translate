@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kultvija Translate</title>
+    <link rel="icon" href="sciezka/do/twojego/obrazu.jpg">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+            position: relative;
+        }
+        h1 {
+            text-align: center;
+        }
+        #translator {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        #translation {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f7f7f7;
+            font-size: 16px;
+            position: relative;
+        }
+        #info {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 20px auto;
+        }
+        #account-box, #profile-box {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        #account-box input, #profile-box input {
+            display: block;
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        #account-box button, #profile-box button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #account-box button:hover, #profile-box button:hover {
+            background-color: #0056b3;
+        }
+        #speaker-icon {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+        .error {
+            color: red;
+        }
+        #profile-picture {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            display: none;
+            text-align: center;
+        }
+        #profile-picture img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+        #profile-picture button {
+            display: block;
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        #profile-picture button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tłumacz Kultwijski</h1>
+    <img src="C:\Users\kuban\OneDrive\Pulpit\Gamefiiles ONaA\kultvija translate.png" alt="Obraz Kultwijski" style="max-width: 200px;">
+    <div id="account-box">
+        <input type="text" id="name" placeholder="Imię">
+        <input type="password" id="password" placeholder="Hasło">
+        <button onclick="createAccount
+()">Stwórz konto do KultvijaTranslate</button>
+        <p id="account-message"></p>
+    </div>
+    <div id="profile-box" style="display: none;">
+        <p>Witaj, <span id="profile-name"></span>. Ustaw sobie zdjęcie profilowe!</p>
+        <input type="file" id="profile-picture-input" accept="image/*">
+        <button onclick="saveProfilePicture()">Zapisz</button>
+    </div>
+    <div id="profile-picture">
+        <img id="profile-pic" src="" alt="Zdjęcie profilowe">
+        <button onclick="manageAccount()">Zarządzaj kontem Kultvija Translate</button>
+    </div>
+    <div id="translator">
+        <textarea id="polishText" rows="4" placeholder="Wpisz tekst po polsku..."></textarea>
+        <div id="translation">
+            Tutaj pojawi się tłumaczenie...
+            <img id="speaker-icon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Speaker_Icon.svg/1200px-Speaker_Icon.svg.png" alt="Głośnik">
+        </div>
+    </div>
+    <div id="info">
+        <p>Nasz tłumacz Kultywicki jest betą, i nie ma wszystkich słów. Ale będzie kiedyś duży!</p>
+        <p>Jeśli chcesz pograć z nami w Minecrafta na oficjalnym serwerze kultywickim, wypełnij <a href="https://docs.google.com/forms/d/e/1FAIpQLScxM_We8SXOkdQpRzskNfJIh-4Af1RwTWxQ9JzlhwmkeMQkmA/viewform?usp=sf_link" target="_blank">formularz Google</a> poniżej.</p>
+    </div>
+
+    <script>
+        const dictionary = {
+            "to": "ton",
+            "ja": "Ża",
+            "ty": "Ży",
+            "i": "E",
+            "on": "In",
+            "ona": "Ina",
+            "jak": "Pog",
+            "czemu": "Hol",
+            "tak": "Fed",
+            "nie": "Haf",
+            "bo": "Wo",
+            "debil": "Tumor",
+            "debilu": "Tumore",
+            "czy": "purg",
+            "hej": "Lewa",
+            "dupa": "As'e",
+            "dzień": "Do",
+            "dobry": "Bro",
+            "dziękuję": "Ken",
+            "proszę": "Plin",
+            "przepraszam": "Sor",
+            "kocham": "Laufen",
+            "ciebie": "żeb'e",
+            "przyjaciel": "Fren",
+            "rodzina": "Fam",
+            "dom": "Hom",
+            "szkoła": "Sko",
+            "praca": "Hob",
+            "jedzenie": "Foder"
+        };
+
+        document.getElementById('polishText').addEventListener('input', function() {
+            const polishText = this.value.toLowerCase();
+            const words = polishText.split(' ');
+            const translatedWords = words.map(word => dictionary[word] || word);
+            document.getElementById('translation').innerText = translatedWords.join(' ');
+        });
+
+        document.getElementById('speaker-icon').addEventListener('click', function() {
+            const translation = document.getElementById('translation').innerText;
+            const speech = new SpeechSynthesisUtterance(translation);
+            speech.lang = 'pl-PL';
+            window.speechSynthesis.speak(speech);
+        });
+
+        function createAccount() {
+            const name = document.getElementById('name').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const message = document.getElementById('account-message');
+            if (name && password) {
+                localStorage.setItem('name', name);
+                localStorage.setItem('password', password);
+                message.textContent = `Witaj w Kultvija Translate, ${name}.`;
+                message.className = '';
+                setTimeout(() => {
+                    document.getElementById('account-box').style.display = 'none';
+                    document.getElementById('profile-box').style.display = 'block';
+                    document.getElementById('profile-name').innerText = name;
+                }, 1000);
+            } else {
+                message.textContent = 'To okienko trzeba wypełnić.';
+                message.className = 'error';
+            }
+        }
+
+        function saveProfilePicture() {
+            const fileInput = document.getElementById('profile-picture-input');
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imageUrl = e.target.result;
+                    localStorage.setItem('profilePicture', imageUrl);
+                    document.getElementById('profile-box').style.display = 'none';
+                    document.getElementById('profile-picture').style.display = 'block';
+                    document.getElementById('profile-pic').src = imageUrl;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function manageAccount() {
+            document.getElementById('profile-picture').style.display = 'none';
+            document.getElementById('profile-box').style.display = 'block';
+        }
+
+        window.onload = function() {
+            const name = localStorage.getItem('name');
+            const profilePicture = localStorage.getItem('profilePicture');
+            if (name) {
+                document.getElementById('account-box').style.display = 'none';
+                document.getElementById('profile-box').style.display = 'none';
+                document.getElementById('profile-picture').style.display = 'block';
+                document.getElementById('profile-name').innerText = name;
+                document.getElementById('profile-pic').src = profilePicture;
+            }
+        }
+    </script>
+</body>
+</html>
